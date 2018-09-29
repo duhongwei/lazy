@@ -15,9 +15,9 @@ import Lazy from './lazy.js'
 const lazy=new Lazy()
 lazy.add(document.querySelectorAll('img[data-src]'))
 ```
-需要懒加载的图片都会data-src 属性。把图片 add 到lazy对象，需要显示的时候会自动显示图片
+需要懒加载的图片都会有 data-src 属性。把图片 add 到lazy对象，需要显示的时候会自动显示图片
 
-add方法可以多次调用,比如增加 data-srcset属性的图片
+add方法可以多次调用,比如增加 data-srcset 属性的图片
 
 ```js
 const lazy=new Lazy()
@@ -34,9 +34,9 @@ lazy.add(document.querySelectorAll('img[data-srcset]'))
 ```js
 const lazy=new Lazy({
 ammend:100,//设大一些，给加载数据留出时间
-	cb:elem=>{
-		//异步加载数据，显示
-	}
+cb:elem=>{
+   //异步加载数据，显示
+}
 })
 lazy.add(document.getElementById('like'))
 ```
@@ -55,11 +55,13 @@ tab.onclick=lazy.load
 
 ### body子元素内的图片懒加载 ###
 
-指定 root可选参数即可
+指定 root 可选参数即可
+如果不指定，视口是 body
 
 ```js
 const div=document.getElementById('d1')
 let lazy=new Lazy(
+  //视口修改为 div 元素
   root:div
 )
 ```
