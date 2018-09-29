@@ -1,5 +1,3 @@
-
-
 let win = window
 let doc = document
 
@@ -32,8 +30,6 @@ export default class {
     this.root = opts.root || doc.body
     this.cb = opts.cb || function () { }
     this.ammend = opts.ammend || 50
-    //简化处理，每个实例只处理一种tag。
-    this.tagName = opts.tagName || 'img'
     this._elems = []
     this._running = false
   }
@@ -66,7 +62,6 @@ export default class {
   _start() {
 
     this._resizeLoad = throttle(this.load, this)
-
     this._scrollLoad = throttle(this.load, this)
 
     this._on('resize', this._resizeLoad)
@@ -143,18 +138,12 @@ export default class {
     //如果是一个集合，那个集合中的元素是准备执行load的元素
     if ('length' in elems) {
       for (let i = 0; i < elems.length; i++) {
-        if (elems[i].tagName.toLowerCase() === this.tagName) {
-          this._elems.push(elems[i])
-        }
+        this._elems.push(elems[i])
       }
     }
-    //如果是一个元素，那么一定是一个窗器
+    //如果不是一个集合，就是一个元素
     else {
-      const section = elems
-      let nodeList = section.getElementsByTagName(this.tagName)
-      for (let i = 0; i < nodeList.length; i++) {
-        this._elems.push(nodeList[i])
-      }
+      this._elems.push(elems)
     }
     this.load()
     if (!this._running && this._elems.length > 0) {
