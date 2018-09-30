@@ -1,3 +1,5 @@
+//author : duhongwei
+
 let win = window
 let doc = document
 
